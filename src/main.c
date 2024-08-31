@@ -19,22 +19,34 @@ int main() {
             c = preencheCliente();
             listaClientes = insereCliente(listaClientes, c);
             break;
-        //remover cliente
+        //buscar cliente
         case 2:
+            printf("Digite o nome do cliente: ");
+            scanf(" %[^\n]", nomeCliente);
+            buscarCliente(listaClientes, nomeCliente);
+            break;
+        //editar cliente
+        case 3:
+            printf("Digite o nome do cliente: ");
+            scanf(" %[^\n]", nomeCliente);
+            listaClientes = editarCliente(listaClientes, nomeCliente, p.nome);
+            break;
+        //imprime lista de clientes
+        case 4:
+            imprimeClientes(listaClientes);
+            break;
+            /*removerProdutoDoCliente(listaClientes);
+            break;*/
+        //remover cliente
+        case 5:
             printf("Digite o nome do cliente: ");
             scanf(" %[^\n]", nomeCliente);
             listaClientes = removeCliente(listaClientes, nomeCliente);
             break;
         //cadastrar produto
-        case 3:
+        case 6:
             listaClientes = cadastroProduto(listaClientes);
             break;
-        case 4:
-            removerProdutoDoCliente(listaClientes);
-            break;
-        //imprime lista de clientes
-        case 5:
-            imprimeClientes(listaClientes);
         default:
             break;
         }

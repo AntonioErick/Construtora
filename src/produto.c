@@ -64,9 +64,12 @@ void imprimeProdutos(Produto *p){
     }
     Produto *aux = p;
     while(aux != NULL){
+        printf("Imprimindo produto...\n");
         printf("Nome: %s, Descricao: %s, Preco: %.2f, Quantidade: %d\n", aux->nome, aux->descricao, aux->preco, aux->quantidade);
         aux = aux->prox;
+        printf("Produto impresso com sucesso\n");
     }
+    printf("Produtos impressos com sucesso\n");
 }
 
 Produto *removeProduto(Produto *lista, char *nome){
@@ -88,5 +91,47 @@ Produto *removeProduto(Produto *lista, char *nome){
     }
     free(p);
     printf("Produto %s removido com sucesso\n", nome);
+    return lista;
+}
+
+Produto *editarProduto(Produto *lista, char *nome){
+    Produto *p = lista;
+    int opcao = 1;
+    for(p = lista; p != NULL; p = p->prox){
+        if(strcmp(p->nome, nome)==0){
+            printf("Nome: %s\nDescricao: %s\nPreco: %2f\nQuantidade: %d\n", p->nome, p->descricao, p->preco, p->quantidade);
+            do{
+                printf("[1] - Editar nome\n[2] - descricao\n[3] - preco\n[4] - quantidade\n[0] - Sair\nDigite a opcao desejada:");
+                scanf("%d", &opcao);
+                if (opcao == 0){
+                    break;
+                }
+                switch(opcao){
+                    case 1:
+                        printf("Digite o novo nome: ");
+                        scanf(" %[^\n]", p->nome);
+                        break;
+                    case 2:
+                        printf("Digite a nova descricao: ");
+                        scanf(" %[^\n]", p->descricao);
+                        break;
+                    case 3:
+                        printf("Digite o novo preco: ");
+                        scanf("%f", &p->preco);
+                        break;
+                    case 4:
+                        printf("Digite a nova quantidade: ");
+                        scanf("%d", &p->quantidade);
+                        break;
+                    default:
+                        printf("Opcao invalida\n");
+                        break;
+                }
+            }while(opcao != 0);
+            printf("Produto %s editado com sucesso\n", nome);
+            return lista;
+        }
+    }
+    printf("Produto nao encontrado\n");
     return lista;
 }

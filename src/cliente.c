@@ -142,6 +142,7 @@ void imprimeClientes(Cliente *lista){
         imprimeProdutos(atual->carrinho);
         atual = atual->prox;
     }
+    printf("Todos os clientes foram listados\n");
 }
 
 Cliente *removerProdutoDoCliente(Cliente *lista){
@@ -169,5 +170,33 @@ Cliente *removerProdutoDoCliente(Cliente *lista){
     //getchar();
 
     aux->carrinho = removeProduto(aux->carrinho, nomeProduto);
+    return lista;
+}
+
+Cliente *editarCliente(Cliente *lista, char *nome, char *nomeProduto){
+    Cliente *aux = buscarCliente(lista, nome);
+    if(aux == NULL){
+        printf("Cliente nao encontrado\nOperacao cancelada\n");
+        return lista;
+    }
+    
+    int opcao;
+    Cliente c = preencheCliente();
+    aux->id = c.id;
+    strcpy(aux->nome, c.nome);
+    strcpy(aux->endereco, c.endereco);
+    strcpy(aux->telefone, c.telefone);
+    
+    printf("Deseja editar o carrinho do cliente?\n[1] - Sim\n[2] - Nao\n");
+    scanf("%d", &opcao);
+
+    if(opcao == 1){
+        aux->carrinho = editarProduto(aux->carrinho, nomeProduto);
+    }
+
+    printf("Dados Atualizados\n");
+    imprimeClientes(lista);
+    printf("Cliente editado com sucesso\n");
+
     return lista;
 }
