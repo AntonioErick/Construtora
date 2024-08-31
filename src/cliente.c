@@ -9,6 +9,54 @@ struct cliente {
     Cliente *prox;
 };
 
+Cliente *cadastroProduto(Cliente *lista){
+    int opcao;
+    char nomeCliente[50];
+    Cliente *aux;
+
+        printf("Digite o nome do cliente:");
+        scanf(" %[^\n]", nomeCliente);
+        //getchar();
+
+        aux = buscarCliente(lista, nomeCliente);
+        if(aux == NULL){
+            printf("Cliente nao cadastrado, vamos cadastrar?\n[1] - Sim\n[2] - Nao\n");
+            scanf("%d", &opcao);
+            if(opcao == 1){
+                Cliente c = preencheCliente();
+                lista = insereCliente(lista, c);
+            }else{
+                printf("Operacao cancelada\n");
+                return lista;
+            }
+        }
+
+    Produto p;
+
+    if(aux == NULL){
+        printf("Insira os dados do produto\n");
+        p = preencheProduto();
+        aux = buscarCliente(lista, nomeCliente);
+        aux->carrinho = insereProduto(aux->carrinho, p);
+    }else{
+        printf("Insira os dados do produto\n");
+        p = preencheProduto();
+        aux->carrinho = insereProduto(aux->carrinho, p);
+    }
+    
+    return lista;
+}
+
+Cliente *buscarCliente(Cliente *lista, char *nome){
+    Cliente *p;
+    for(p = lista; p != NULL; p = p->prox){
+        if(strcmp(p->nome, nome) == 0){
+            return p;
+        }
+    }
+    return NULL;
+}
+
 int listaVazia(Cliente *lista) {
     return (lista == NULL);
 }
@@ -61,6 +109,27 @@ Cliente *insereCliente(Cliente *lista, Cliente c){
     return lista;
 }
 
+Cliente *removeCliente(Cliente *lista, char *nome){
+    Cliente *ant = NULL;
+    Cliente *p = lista;
+    while(p != NULL && strcmp(p->nome, nome) != 0){
+        ant = p;
+        p = p->prox;
+    }
+    if (p == NULL){
+        printf("Cliente nao encontrado\n");
+        return lista;
+    }
+    if(ant == NULL){
+        lista = p->prox;
+    } else {
+        ant->prox = p->prox;
+    }
+    free(p);
+    printf("Cliente %s removido com sucesso\n", nome);
+    return lista;
+}
+
 void imprimeClientes(Cliente *lista){
     if(listaVazia(lista)){
         printf("Lista vazia\n");
@@ -70,7 +139,35 @@ void imprimeClientes(Cliente *lista){
     Cliente *atual = lista;
     while(atual != NULL){
         printf("ID: %d\nNome: %s\nEndereco: %s\nTelefone: %s\n", atual->id, atual->nome, atual->endereco, atual->telefone);
-        //colocar o imprime produtos quando tiver feita
+        imprimeProdutos(atual->carrinho);
         atual = atual->prox;
     }
+}
+
+Cliente *removerProdutoDoCliente(Cliente *lista){
+    if(listaVazia(lista)){
+        printf("Lista vazia\n");
+        return lista;
+    }
+
+    imprimeClientes(lista);
+
+    char nomeCliente[50];
+    char nomeProduto[50];
+
+    printf("Digite o nome do cliente: ");
+    scanf(" %[^\n]", nomeCliente);
+    //getchar();
+    Cliente *aux = buscarCliente(lista, nomeCliente);
+    if(aux == NULL){
+        printf("Cliente nao encontrado\nOperacao cancelada\n");
+        return lista;
+    }
+
+    printf("Digite o nome do produto: ");
+    scanf(" %[^\n]", nomeProduto);
+    //getchar();
+
+    aux->carrinho = removeProduto(aux->carrinho, nomeProduto);
+    return lista;
 }
