@@ -5,8 +5,6 @@
 
 typedef struct cliente Cliente;
 
-Cliente *buscarCliente(Cliente *lista, char *nome);
-Cliente *insereCliente(Cliente *lista, Cliente c);
-Cliente preencheCliente();
-
+Cliente* criaCliente();
+void imprimeCliente(Cliente *cliente);
 #endif

@@ -1,57 +1,38 @@
-#include "cliente.c"
+#include "hash.c"
+
 
 int main() {
+    TabelaHash *tabela = criaTabelaHash(TAMANHO_TABELA);
 
-    int opcao;
-    Produto p;
-    char nomeCliente[50];
+    int opc, idBusca;
+    Cliente *cliente = NULL;
 
-    Cliente *listaClientes = NULL;
-    Cliente c;
-    do {
+    do
+    {
         menu();
-        scanf("%d", &opcao);
-
-        switch (opcao)
-        {
-        //cadastrar cliente
-        case 1:
-            c = preencheCliente();
-            listaClientes = insereCliente(listaClientes, c);
+        scanf("%d", &opc);
+        switch (opc){
+            case 0:
+                printf("Saindo...\n");
+                break;
+            case 1:
+                limpatela();
+                printf("Cadastrando cliente\n");
+                cliente = criaCliente();
+                insereClienteHash(tabela, cliente);
             break;
-        //buscar cliente
-        case 2:
-            printf("Digite o nome do cliente: ");
-            scanf(" %[^\n]", nomeCliente);
-            buscarCliente(listaClientes, nomeCliente);
-            break;
-        //editar cliente
-        case 3:
-            printf("Digite o nome do cliente: ");
-            scanf(" %[^\n]", nomeCliente);
-            listaClientes = editarCliente(listaClientes, nomeCliente, p.nome);
-            break;
-        //imprime lista de clientes
-        case 4:
-            imprimeClientes(listaClientes);
-            break;
-            /*removerProdutoDoCliente(listaClientes);
-            break;*/
-        //remover cliente
-        case 5:
-            printf("Digite o nome do cliente: ");
-            scanf(" %[^\n]", nomeCliente);
-            listaClientes = removeCliente(listaClientes, nomeCliente);
-            break;
-        //cadastrar produto
-        case 6:
-            listaClientes = cadastroProduto(listaClientes);
-            break;
+            case 2:
+                limpatela();
+                printf("Digite o ID do cliente: ");
+                scanf("%d", &idBusca);
+                cliente = buscaClienteHash(tabela, idBusca);
+                imprimeClienteBuscado(tabela, idBusca);
+                break;
+            case 5:
         default:
             break;
         }
-
-    } while (opcao != 9);
+    } while (opc != 0);
 
     return 0;
 }
