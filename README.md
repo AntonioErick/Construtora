@@ -1,6 +1,5 @@
 <h1>
-    <img src="./Users/Erick/Downloads/construtech2.svg"/>
-    <p>Construa seu futuro com a gente!🛠️<p>
+    <p>Construtech - Construa seu futuro com a gente!🛠️<p>
 </h1>
 
 ## 🚨Sobre nós
