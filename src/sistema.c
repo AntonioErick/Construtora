@@ -3,7 +3,6 @@
 #include <string.h>
 #include <time.h>
 
-
 void menu(){
     printf("====Bem Vindo====\n");
         printf("[1] - Cadastro Cliente\n");
@@ -18,6 +17,13 @@ void menu(){
         printf(">> ");
 }
 
+void menuEditCliente(){
+    printf("[1] - Editar Nome\n");
+    printf("[2] - Editar Endereço\n");
+    printf("[3] - Editar Telefone\n");
+    printf("[0] - Sair\n");
+    printf(">> ");
+}
 
 void limpatela() {
     #ifdef _WIN32
@@ -28,7 +34,6 @@ void limpatela() {
         printf("Sistema operacional não suportado.\n");
     #endif
 }
-
 
 int gerarIdAleatorio() {
     srand(time(NULL));

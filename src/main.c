@@ -1,6 +1,5 @@
 #include "hash.c"
 
-
 int main() {
     TabelaHash *tabela = criaTabelaHash(TAMANHO_TABELA);
 
@@ -28,7 +27,23 @@ int main() {
                 cliente = buscaClienteHash(tabela, idBusca);
                 imprimeClienteBuscado(tabela, idBusca);
                 break;
+            case 3:
+                limpatela();
+                printf("Digite o ID do cliente para editar: ");
+                scanf("%d", &idBusca);
+                editaClienteHash(tabela, idBusca);
+                break;
+            case 4:
+                limpatela();
+                printf("Digite o ID do cliente para remover: ");
+                scanf("%d", &idBusca);
+                removeClienteHash(tabela, idBusca);
+                break;
             case 5:
+                limpatela();
+                printf("Listando todos os clientes cadastrados\n");
+                imprimeTabelaHash(tabela);
+                break;
         default:
             break;
         }

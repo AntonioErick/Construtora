@@ -44,4 +44,11 @@ void imprimeCliente(Cliente *cliente){
     printf("Endereço: %s\n", cliente->endereco);
     printf("Telefone: %s\n", cliente->telefone);
     printf("===========================\n");
+    if (cliente->produtos == NULL) {
+        printf("Nenhum produto cadastrado para este cliente.\n");
+    } else {
+        printf("=== Produtos Associados ===\n");
+        //imprimeProdutos(cliente->produtos);
+        printf("===========================\n");
+    }
 }

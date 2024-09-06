@@ -12,5 +12,9 @@ void insereClienteHash(TabelaHash *tabela, Cliente *cliente);
 int funcaoHash(int id, int tamanho);
 Cliente* buscaClienteHash(TabelaHash *tabela, int id);
 void imprimeClienteBuscado(TabelaHash *tabela, int id);
+int removeClienteHash(TabelaHash *tabela, int id);
+void editaClienteHash(TabelaHash *tabela, int id);
+void imprimeTabelaHash(TabelaHash *tabela);
+
 
 #endif
