@@ -5,72 +5,50 @@ struct cliente {
     char nome[50];
     char endereco[100];
     char telefone[15];
-    Produto *carrinho;
-    Cliente *prox;
+    Produto *produtos;
 };
 
-int listaVazia(Cliente *lista) {
-    return (lista == NULL);
-}
-
-Cliente preencheCliente() {
-    Cliente c;
-    
-    printf("Digite o nome do cliente: ");
-    scanf(" %[^\n]", c.nome);
-    printf("Digite o endereco do cliente: ");
-    scanf(" %[^\n]", c.endereco);
-    printf("Digite o telefone do cliente: ");
-    scanf(" %[^\n]", c.telefone);
-    c.id = gerarIdAleatorio();
-    c.carrinho = NULL;
-    c.prox = NULL;
-    return c;
-}
-
-Cliente *insereCliente(Cliente *lista, Cliente c){
-    Cliente *novo = (Cliente *) malloc(sizeof(Cliente));
-    if(novo == NULL){
-        printf("Erro ao alocar memoria\n");
+Cliente* criaCliente() {
+    Cliente *novoCliente = (Cliente *) malloc(sizeof(Cliente));
+    if (novoCliente == NULL) {
+        printf("Erro ao alocar memória para o cliente.\n");
         exit(1);
     }
-    novo->id = c.id;
-    strcpy(novo->nome, c.nome);
-    strcpy(novo->endereco, c.endereco);
-    strcpy(novo->telefone, c.telefone);
-    novo->prox = NULL;
 
-    if(lista == NULL || strcmp(lista->nome, novo->nome) > 0){
-        novo->prox = lista;
-        printf("Cliente %s cadastrado com sucesso\n", novo->nome);
-        return novo;
-    }
+    printf("Digite o nome do cliente: ");
+    scanf(" %[^\n]", novoCliente->nome);
 
-    Cliente *ant = NULL;
-    Cliente *atual = lista;
+    printf("Digite o endereço do cliente: ");
+    scanf(" %[^\n]", novoCliente->endereco);
 
-    while(atual != NULL && strcmp(atual->nome, novo->nome) < 0){
-        ant = atual;
-        atual = atual->prox;
-    }
+    printf("Digite o telefone do cliente: ");
+    scanf(" %[^\n]", novoCliente->telefone);
 
-    ant->prox = novo;
-    novo->prox = atual;
-    printf("Cliente %s cadastrado com sucesso\n", novo->nome);
+    novoCliente->id = gerarIdAleatorio();
+    novoCliente->produtos = NULL;
 
-    return lista;
+    printf("Cliente %s criado com sucesso. ID: %d\n", novoCliente->nome, novoCliente->id);
+
+    return novoCliente;
 }
 
-void imprimeClientes(Cliente *lista){
-    if(listaVazia(lista)){
-        printf("Lista vazia\n");
+void imprimeCliente(Cliente *cliente){
+    if (cliente == NULL) {
+        printf("Cliente inválido ou não encontrado.\n");
         return;
     }
 
-    Cliente *atual = lista;
-    while(atual != NULL){
-        printf("ID: %d\nNome: %s\nEndereco: %s\nTelefone: %s\n", atual->id, atual->nome, atual->endereco, atual->telefone);
-        //colocar o imprime produtos quando tiver feita
-        atual = atual->prox;
+    printf("=== Detalhes do Cliente ===\n");
+    printf("ID: %d\n", cliente->id);
+    printf("Nome: %s\n", cliente->nome);
+    printf("Endereço: %s\n", cliente->endereco);
+    printf("Telefone: %s\n", cliente->telefone);
+    printf("===========================\n");
+    if (cliente->produtos == NULL) {
+        printf("Nenhum produto cadastrado para este cliente.\n");
+    } else {
+        printf("=== Produtos Associados ===\n");
+        //imprimeProdutos(cliente->produtos);
+        printf("===========================\n");
     }
 }
