@@ -161,3 +161,110 @@ void imprimeTabelaHash(TabelaHash *tabela) {
     }
     printf("===========================\n");
 }
+
+void cadastrarProdutoParaCliente(TabelaHash *tabela) {
+    int idCliente;
+    char nomeProduto[50];
+    float preco;
+    int quantidade;
+    
+    printf("Digite o ID do cliente: ");
+    scanf("%d", &idCliente);
+
+    Cliente *cliente = buscaClienteHash(tabela, idCliente);
+    if (cliente == NULL) {
+        printf("Cliente não encontrado. Deseja cadastrar um novo cliente? (1 - Sim / 0 - Não): ");
+        int opcao;
+        scanf("%d", &opcao);
+        if (opcao == 1) {
+            cliente = criaCliente();
+            insereClienteHash(tabela, cliente);
+        } else {
+            printf("Operação cancelada.\n");
+            return;
+        }
+    }
+
+    printf("Digite o nome do produto: ");
+    scanf(" %[^\n]", nomeProduto);
+    printf("Digite o preço do produto: ");
+    scanf("%f", &preco);
+    printf("Digite a quantidade do produto: ");
+    scanf("%d", &quantidade);
+
+    Produto *novoProduto = criaProduto(nomeProduto, preco, quantidade);
+    cliente->produtos = insereProdutoAVL(cliente->produtos, novoProduto);
+    printf("Produto %s cadastrado com sucesso para o cliente de ID %d.\n", nomeProduto, idCliente);
+}
+
+void removerProdutoDoCliente(TabelaHash *tabela) {
+    int idCliente;
+    char nomeProduto[50];
+
+    printf("Digite o ID do cliente: ");
+    scanf("%d", &idCliente);
+
+    Cliente *cliente = buscaClienteHash(tabela, idCliente);
+    if (cliente == NULL) {
+        printf("Cliente com ID %d não encontrado.\n", idCliente);
+        return;
+    }
+
+    if (cliente->produtos == NULL) {
+        printf("O cliente de ID %d não tem produtos cadastrados.\n", idCliente);
+        return;
+    }
+
+    printf("Digite o nome do produto a ser removido: ");
+    scanf(" %[^\n]", nomeProduto);
+
+    cliente->produtos = removeProdutoAVL(cliente->produtos, nomeProduto);
+
+    printf("Produto %s removido com sucesso do cliente de ID %d.\n", nomeProduto, idCliente);
+}
+
+void buscarProdutoDoCliente(TabelaHash *tabela) {
+    int idCliente;
+    char nomeProduto[50];
+
+    printf("Digite o ID do cliente: ");
+    scanf("%d", &idCliente);
+
+    Cliente *cliente = buscaClienteHash(tabela, idCliente);
+    if (cliente == NULL) {
+        printf("Cliente com ID %d não encontrado.\n", idCliente);
+        return;
+    }
+
+    if (cliente->produtos == NULL) {
+        printf("O cliente de ID %d não tem produtos cadastrados.\n", idCliente);
+        return;
+    }
+
+    printf("Digite o nome do produto que deseja buscar: ");
+    scanf(" %[^\n]", nomeProduto);
+
+    Produto *produto = buscaProdutoAVL(cliente->produtos, nomeProduto);
+
+    if (produto == NULL) {
+        printf("Produto %s não encontrado para o cliente de ID %d.\n", nomeProduto, idCliente);
+    } else {
+        printf("Produto encontrado:\n");
+        printf("Nome: %s\n", produto->nome);
+        printf("Preço: %.2f\n", produto->preco);
+        printf("Quantidade: %d\n", produto->quantidade);
+    }
+}
+
+void liberaTabelaHash(TabelaHash *tabela) {
+    for (int i = 0; i < tabela->tamanho; i++) {
+        if (tabela->clientes[i] != NULL) {
+            liberaProdutosAVL(tabela->clientes[i]->produtos);
+
+            free(tabela->clientes[i]);
+        }
+    }
+
+    free(tabela->clientes);
+    free(tabela);
+}

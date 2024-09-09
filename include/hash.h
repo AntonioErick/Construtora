@@ -15,6 +15,10 @@ void imprimeClienteBuscado(TabelaHash *tabela, int id);
 int removeClienteHash(TabelaHash *tabela, int id);
 void editaClienteHash(TabelaHash *tabela, int id);
 void imprimeTabelaHash(TabelaHash *tabela);
+void cadastrarProdutoParaCliente(TabelaHash *tabela);
+void removerProdutoDoCliente(TabelaHash *tabela);
+void buscarProdutoDoCliente(TabelaHash *tabela);
+void liberaTabelaHash(TabelaHash *tabela);
 
 
 #endif

@@ -12,14 +12,16 @@ int main() {
         scanf("%d", &opc);
         switch (opc){
             case 0:
+                limpatela();
                 printf("Saindo...\n");
+                liberaTabelaHash(tabela);
                 break;
             case 1:
                 limpatela();
                 printf("Cadastrando cliente\n");
                 cliente = criaCliente();
                 insereClienteHash(tabela, cliente);
-            break;
+                break;
             case 2:
                 limpatela();
                 printf("Digite o ID do cliente: ");
@@ -43,6 +45,21 @@ int main() {
                 limpatela();
                 printf("Listando todos os clientes cadastrados\n");
                 imprimeTabelaHash(tabela);
+                break;
+            case 6:
+                limpatela();
+                printf("Cadastrando produto para cliente\n");
+                cadastrarProdutoParaCliente(tabela);
+                break;
+            case 7:
+                limpatela();
+                printf("Buscando produto de cliente\n");
+                buscarProdutoDoCliente(tabela);
+                break;
+            case 8:
+                limpatela();
+                printf("Removendo produto de cliente\n");
+                removerProdutoDoCliente(tabela);
                 break;
         default:
             break;

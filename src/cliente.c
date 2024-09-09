@@ -48,7 +48,7 @@ void imprimeCliente(Cliente *cliente){
         printf("Nenhum produto cadastrado para este cliente.\n");
     } else {
         printf("=== Produtos Associados ===\n");
-        //imprimeProdutos(cliente->produtos);
+        imprimeProdutos(cliente->produtos);
         printf("===========================\n");
     }
 }
