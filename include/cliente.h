@@ -5,7 +5,6 @@
 
 typedef struct cliente Cliente;
 
-
-Cliente preencheCliente();
-
+Cliente* criaCliente();
+void imprimeCliente(Cliente *cliente);
 #endif
