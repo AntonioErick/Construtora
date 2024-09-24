@@ -96,12 +96,10 @@ Produto *heapify(Produto *raiz)
 
     if (max != raiz)
     {
-        // Trocar valores com o maior nó (max)
         Produto temp = *raiz;
         *raiz = *max;
         *max = temp;
 
-        // Heapificar o subárvore afetado
         heapify(max);
     }
 
@@ -131,7 +129,6 @@ Produto *insereProdutoAVL(Produto *raiz, Produto *novoProduto)
 
     raiz->altura = 1 + max(altura(raiz->esq), altura(raiz->dir));
 
-    // Manter a propriedade da heap
     raiz = heapify(raiz);
 
     int balance = getBalanceamento(raiz);
