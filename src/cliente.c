@@ -170,6 +170,7 @@ void entregaProdutos(Heap *heap)
         return;
     }
 
+    // Remove o cliente com maior prioridade (valor total mais alto)
     Cliente *cliente = removeClienteHeap(heap);
 
     if (cliente == NULL)
@@ -178,13 +179,18 @@ void entregaProdutos(Heap *heap)
         return;
     }
 
+    // Exibir informações do cliente e realizar a "entrega"
     printf("Realizando a entrega para o cliente: %s\n", cliente->nome);
     printf("Endereço: %s\n", cliente->endereco);
     printf("Valor total a pagar: R$ %.2f\n", cliente->valorTotal);
 
-    liberaProdutosAVL(cliente->produtos); // Remove todos os produtos
-    cliente->produtos = NULL;             // Após a entrega, o cliente fica sem produtos
-    cliente->valorTotal = 0;              // Zera o valor total após a entrega
+    // Remove todos os produtos do cliente
+    liberaProdutosAVL(cliente->produtos);
+    cliente->produtos = NULL; // O cliente agora não tem mais produtos
+    cliente->valorTotal = 0;  // Valor total é zerado
+
+    // Reorganiza a heap após a entrega
+    heapify(heap, 0);
 
     printf("Entrega realizada com sucesso! Todos os produtos foram removidos.\n");
 }

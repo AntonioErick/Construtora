@@ -2,7 +2,7 @@
 
 int main() {
     TabelaHash *tabela = criaTabelaHash(TAMANHO_TABELA);
-    Heap *heap = criaHeap(100); // Capacidade máxima da heap
+    Heap *heap = criaHeap(100);
     int opc, idBusca;
     Cliente *cliente = NULL;
 
@@ -15,15 +15,15 @@ int main() {
                 limpatela();
                 printf("Saindo...\n");
                 liberaTabelaHash(tabela);
-                free(heap); // Liberar memória da heap
+                free(heap);
                 break;
             case 1:
                 limpatela();
                 printf("Cadastrando cliente\n");
                 cliente = criaCliente();
-                insereClienteHash(tabela, cliente);  // Insere na hash
-                atualizarValorTotalCliente(cliente); // Atualiza o valor total
-                insereClienteHeap(heap, cliente);    // Insere na heap
+                insereClienteHash(tabela, cliente); 
+                atualizarValorTotalCliente(cliente);
+                insereClienteHeap(heap, cliente);
                 break;
             case 2:
                 limpatela();
@@ -67,7 +67,7 @@ int main() {
             case 9:
                 limpatela();
                 printf("Realizando entrega de produtos\n");
-                entregaProdutos(heap); // Chama a função de entrega
+                entregaProdutos(heap);
                 break;
             default:
                 break;
