@@ -1,10 +1,6 @@
-<div align="center">
-  <img src="https://github.com/user-attachments/assets/5aa5680c-a90b-4f1a-b40f-5e5fb01df2e0" alt="Construa seu futuro com a gente!" width="300">
-</div>
-
 <h1>
   <div align="center">
-    <p>Construindo com qualidade e confiança!🛠️<p>
+    <p>Construa seu futuro com a gente!🛠️<p>
   </div>
 </h1>
 
@@ -16,6 +12,29 @@
 
 - Tabela Hash: Desenvolvida para distribuir e armazenar clientes, possibilitando operações de inserção, busca e remoção de maneira rápida e com o tratamento de colisões.
 - AVL: Implementada para gerenciar produtos, assegurando operações balanceadas de inserção, busca e remoção, com complexidade de tempo O(log n).
+
+## 🔍Funcionalidades
+- Cliente:
+
+   - Adicionar novos clientes ao sistema. 
+
+   - Permite procurar um cliente específico no sistema.
+
+   - Opção para atualizar informações de um cliente já cadastrado.
+ 
+   - Permite a exclusão de um cliente cadastrado.
+
+- Loja:
+
+  - Exibe uma lista de todos os clientes cadastrados e os seus respectivos produtos.
+
+  - Função para adicionar novos produtos à loja, permitindo que sejam vinculados aos clientes.
+
+  - Permite excluir um produto da lista de disponíveis na loja.
+
+  - Encerra o programa.
+
+Isso cria um fluxo lógico para o funcionamento da aplicação com foco em gerenciamento de clientes e produtos.
 
 ## ♻ Clonar repositório
 ```bash
