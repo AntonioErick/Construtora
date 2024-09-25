@@ -3,20 +3,21 @@
 #include <string.h>
 #include <time.h>
 
-void menu(){
+void menu()
+{
     printf("====Bem Vindo====\n");
-        printf("[1] - Cadastro Cliente\n");
-        printf("[2] - Buscar Cliente\n");
-        printf("[3] - Editar Cliente\n");
-        printf("[4] - Remover Cliente\n");
-        printf("[5] - Listar Clientes e seus respectivos produtos\n");
-        printf("[6] - Cadastro Produto\n");
-        printf("[7] - Busca Produto\n");
-        printf("[8] - Remove Produto\n");
-        printf("[0] - Sair\n");
-        printf(">> ");
+    printf("[1] - Cadastro Cliente\n");
+    printf("[2] - Buscar Cliente\n");
+    printf("[3] - Editar Cliente\n");
+    printf("[4] - Remover Cliente\n");
+    printf("[5] - Listar Clientes e seus respectivos produtos\n");
+    printf("[6] - Cadastro Produto\n");
+    printf("[7] - Busca Produto\n");
+    printf("[8] - Remove Produto\n");
+    printf("[9] - Realizar Entrega\n"); // Nova opção de entrega
+    printf("[0] - Sair\n");
+    printf(">> ");
 }
-
 void menuEditCliente(){
     printf("[1] - Editar Nome\n");
     printf("[2] - Editar Endereço\n");
