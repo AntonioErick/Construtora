@@ -11,14 +11,14 @@ struct cliente {
 Cliente* criaCliente() {
     Cliente *novoCliente = (Cliente *) malloc(sizeof(Cliente));
     if (novoCliente == NULL) {
-        printf("Erro ao alocar memória para o cliente.\n");
+        printf("Erro ao alocar memoria para o cliente.\n");
         exit(1);
     }
 
     printf("Digite o nome do cliente: ");
     scanf(" %[^\n]", novoCliente->nome);
 
-    printf("Digite o endereço do cliente: ");
+    printf("Digite o endereco do cliente: ");
     scanf(" %[^\n]", novoCliente->endereco);
 
     printf("Digite o telefone do cliente: ");
@@ -32,23 +32,33 @@ Cliente* criaCliente() {
     return novoCliente;
 }
 
-void imprimeCliente(Cliente *cliente){
-    if (cliente == NULL) {
-        printf("Cliente inválido ou não encontrado.\n");
+void imprimeCliente(Cliente *cliente)
+{
+    if (cliente == NULL)
+    {
+        printf("Cliente invalido ou nao encontrado.\n");
         return;
     }
 
     printf("=== Detalhes do Cliente ===\n");
     printf("ID: %d\n", cliente->id);
     printf("Nome: %s\n", cliente->nome);
-    printf("Endereço: %s\n", cliente->endereco);
+    printf("Endereco: %s\n", cliente->endereco);
     printf("Telefone: %s\n", cliente->telefone);
     printf("===========================\n");
-    if (cliente->produtos == NULL) {
+
+    if (cliente->produtos == NULL)
+    {
         printf("Nenhum produto cadastrado para este cliente.\n");
-    } else {
+    }
+    else
+    {
         printf("=== Produtos Associados ===\n");
         imprimeProdutos(cliente->produtos);
         printf("===========================\n");
+
+        // Calcula o preço total de todos os produtos do cliente
+        float precoTotal = calculaPrecoTotal(cliente->produtos);
+        printf("Preco total a pagar: R$ %.2f\n", precoTotal);
     }
 }
