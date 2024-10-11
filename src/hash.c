@@ -232,7 +232,7 @@ void removerProdutoDoCliente(TabelaHash *tabela) {
     printf("Produto %s removido com sucesso do cliente de ID %d.\n", nomeProduto, idCliente);
 }
 
-void venderProdutos(TabelaHash *tabela)
+void venderProdutos(TabelaHash *tabela, Heap *heap)
 {
     int idCliente;
 
@@ -248,15 +248,19 @@ void venderProdutos(TabelaHash *tabela)
 
     if (cliente->produtos == NULL)
     {
-        printf("O cliente de ID %d não tem produtos cadastrados.\n", idCliente);
+        printf("O cliente não tem produtos cadastrados.\n");
         return;
     }
 
-    liberaProdutosAVL(cliente->produtos); 
-    cliente->produtos = NULL;            
-    cliente->valorTotal = 0;          
+    liberaProdutosAVL(cliente->produtos);
+    cliente->produtos = NULL;
+    cliente->valorTotal = 0;
 
-    printf("Todos os produtos do cliente de ID %d foram Vendidos com sucesso.\n", idCliente);
+    printf("Todos os produtos do cliente de ID %d foram vendidos com sucesso.\n", idCliente);
+
+    // Adiciona o cliente na heap com prioridade para entrega
+    insereClienteHeap(heap, cliente);
+    printf("Cliente %s adicionado à fila de entregas.\n", cliente->nome);
 }
 
 void buscarProdutoDoCliente(TabelaHash *tabela) {

@@ -23,7 +23,6 @@ int main() {
                 cliente = criaCliente();
                 insereClienteHash(tabela, cliente); 
                 atualizarValorTotalCliente(cliente);
-                insereClienteHeap(heap, cliente);
                 break;
             case 2:
                 limpatela();
@@ -62,7 +61,7 @@ int main() {
             case 8:
                 limpatela();
                 printf("Vendendo os Produtos\n");
-                venderProdutos(tabela);
+                venderProdutos(tabela, heap);
                 break;
             case 9:
                 limpatela();

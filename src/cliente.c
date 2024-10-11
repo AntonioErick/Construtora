@@ -30,7 +30,7 @@ Cliente *criaCliente()
     printf("Digite o nome do cliente: ");
     scanf(" %[^\n]", novoCliente->nome);
 
-    printf("Digite o endereço do cliente: ");
+    printf("Digite o endereco do cliente: ");
     scanf(" %[^\n]", novoCliente->endereco);
 
     printf("Digite o telefone do cliente: ");
@@ -58,14 +58,14 @@ void imprimeCliente(Cliente *cliente)
 {
     if (cliente == NULL)
     {
-        printf("Cliente inválido ou não encontrado.\n");
+        printf("Cliente invalido ou nao encontrado.\n");
         return;
     }
 
     printf("=== Detalhes do Cliente ===\n");
     printf("ID: %d\n", cliente->id);
     printf("Nome: %s\n", cliente->nome);
-    printf("Endereço: %s\n", cliente->endereco);
+    printf("Endereco: %s\n", cliente->endereco);
     printf("Telefone: %s\n", cliente->telefone);
     printf("===========================\n");
 
@@ -166,11 +166,18 @@ void entregaProdutos(Heap *heap)
 {
     if (heap->tamanho == 0)
     {
-        printf("Nenhum pedido para entrega.\n");
+        printf("Nenhum cliente na fila de entregas.\n");
         return;
     }
 
-    // Remove o cliente com maior prioridade (valor total mais alto)
+    printf("=== Fila de Entregas ===\n");
+    for (int i = 0; i < heap->tamanho; i++)
+    {
+        printf("%d. Cliente: %s\n", i + 1, heap->clientes[i]->nome);
+    }
+    printf("=======================\n");
+
+    // Processa a entrega para o cliente com maior prioridade
     Cliente *cliente = removeClienteHeap(heap);
 
     if (cliente == NULL)
@@ -179,18 +186,10 @@ void entregaProdutos(Heap *heap)
         return;
     }
 
-    // Exibir informações do cliente e realizar a "entrega"
+    // Exibe informações do cliente e realiza a "entrega"
     printf("Realizando a entrega para o cliente: %s\n", cliente->nome);
     printf("Endereço: %s\n", cliente->endereco);
-    printf("Valor total a pagar: R$ %.2f\n", cliente->valorTotal);
 
-    // Remove todos os produtos do cliente
-    liberaProdutosAVL(cliente->produtos);
-    cliente->produtos = NULL; // O cliente agora não tem mais produtos
-    cliente->valorTotal = 0;  // Valor total é zerado
-
-    // Reorganiza a heap após a entrega
-    heapify(heap, 0);
-
-    printf("Entrega realizada com sucesso! Todos os produtos foram removidos.\n");
+    // Simula a entrega removendo o cliente da heap (produtos já foram vendidos)
+    printf("Entrega realizada com sucesso para %s.\n", cliente->nome);
 }
