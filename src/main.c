@@ -2,7 +2,7 @@
 
 int main() {
     TabelaHash *tabela = criaTabelaHash(TAMANHO_TABELA);
-
+    Heap *heap = criaHeap(100);
     int opc, idBusca;
     Cliente *cliente = NULL;
 
@@ -15,12 +15,15 @@ int main() {
                 limpatela();
                 printf("Saindo...\n");
                 liberaTabelaHash(tabela);
+                free(heap);
                 break;
             case 1:
                 limpatela();
                 printf("Cadastrando cliente\n");
                 cliente = criaCliente();
-                insereClienteHash(tabela, cliente);
+                insereClienteHash(tabela, cliente); 
+                atualizarValorTotalCliente(cliente);
+                insereClienteHeap(heap, cliente);
                 break;
             case 2:
                 limpatela();
@@ -53,16 +56,21 @@ int main() {
                 break;
             case 7:
                 limpatela();
-                printf("Buscando produto de cliente\n");
-                buscarProdutoDoCliente(tabela);
-                break;
-            case 8:
-                limpatela();
                 printf("Removendo produto de cliente\n");
                 removerProdutoDoCliente(tabela);
                 break;
-        default:
-            break;
+            case 8:
+                limpatela();
+                printf("Buscando produto de cliente\n");
+                buscarProdutoDoCliente(tabela);
+                break;
+            case 9:
+                limpatela();
+                printf("Realizando entrega de produtos\n");
+                entregaProdutos(heap);
+                break;
+            default:
+                break;
         }
     } while (opc != 0);
 
