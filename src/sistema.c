@@ -3,8 +3,7 @@
 #include <string.h>
 #include <time.h>
 
-void menu()
-{
+void menu(){
     printf("====Bem Vindo====\n");
     printf("[1] - Cadastro Cliente\n");
     printf("[2] - Buscar Cliente\n");
@@ -18,6 +17,7 @@ void menu()
     printf("[0] - Sair\n");
     printf(">> ");
 }
+
 void menuEditCliente(){
     printf("[1] - Editar Nome\n");
     printf("[2] - Editar Endereco\n");
@@ -26,8 +26,7 @@ void menuEditCliente(){
     printf(">> ");
 }
 
-void listaProdutos()
-{
+void listaProdutos(){
     printf("=== Produtos Disponiveis ===\n");
     printf("[1] - Cimento (R$ 25.00)\n");
     printf("[2] - Brita (R$ 50.00)\n");
@@ -42,7 +41,7 @@ void listaProdutos()
     printf("===========================\n");
 }
 
-void limpatela() {
+void limpatela(){
     #ifdef _WIN32
         system("cls"); // Windows
     #elif __linux__
@@ -52,7 +51,7 @@ void limpatela() {
     #endif
 }
 
-int gerarIdAleatorio() {
+int gerarIdAleatorio(){
     srand(time(NULL));
     return rand() % 10000;
 }

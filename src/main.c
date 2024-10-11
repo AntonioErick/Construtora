@@ -1,13 +1,12 @@
 #include "hash.c"
 
-int main() {
+int main(){
     TabelaHash *tabela = criaTabelaHash(TAMANHO_TABELA);
     Heap *heap = criaHeap(100);
     int opc, idBusca;
     Cliente *cliente = NULL;
 
-    do
-    {
+    do{
         menu();
         scanf("%d", &opc);
         switch (opc){
