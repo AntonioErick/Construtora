@@ -80,7 +80,7 @@ void imprimeCliente(Cliente *cliente)
         printf("===========================\n");
 
         float precoTotal = calculaPrecoTotal(cliente->produtos);
-        printf("Preço total a pagar: R$ %.2f\n", precoTotal);
+        printf("Preco total a pagar: R$ %.2f\n", precoTotal);
     }
 }
 

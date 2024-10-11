@@ -187,7 +187,7 @@ void cadastrarProdutoParaCliente(TabelaHash *tabela)
         }
     }
 
-    listaProdutos(); // Mostra os produtos disponíveis
+    listaProdutos();
     printf("Escolha o numero do produto: ");
     scanf("%d", &codigoProduto);
 

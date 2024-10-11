@@ -10,24 +10,20 @@ void menu()
     printf("[2] - Buscar Cliente\n");
     printf("[3] - Editar Cliente\n");
     printf("[4] - Remover Cliente\n");
-    printf("[5] - Listar Clientes e seus respectivos produtos\n");
-    printf("[6] - Cadastro Produto\n");
-    printf("[7] - Busca Produto\n");
-    printf("[8] - Remove Produto\n");
-    printf("[9] - Realizar Entrega\n"); // Nova opção de entrega
+    printf("[5] - Carrinhos\n");
+    printf("[6] - Adicionar ao Carrinho\n");
+    printf("[7] - Remover Produto\n");
+    printf("[8] - Vender Produtos\n");
+    printf("[9] - Realizar Entregas\n");
     printf("[0] - Sair\n");
     printf(">> ");
 }
 void menuEditCliente(){
     printf("[1] - Editar Nome\n");
-    printf("[2] - Editar Endereço\n");
+    printf("[2] - Editar Endereco\n");
     printf("[3] - Editar Telefone\n");
     printf("[0] - Sair\n");
     printf(">> ");
-}
-
-void menuProdutos(){
-
 }
 
 void listaProdutos()

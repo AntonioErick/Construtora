@@ -56,13 +56,13 @@ int main() {
                 break;
             case 7:
                 limpatela();
-                printf("Buscando produto de cliente\n");
-                buscarProdutoDoCliente(tabela);
+                printf("Removendo produto de cliente\n");
+                removerProdutoDoCliente(tabela);
                 break;
             case 8:
                 limpatela();
-                printf("Removendo produto de cliente\n");
-                removerProdutoDoCliente(tabela);
+                printf("Buscando produto de cliente\n");
+                buscarProdutoDoCliente(tabela);
                 break;
             case 9:
                 limpatela();
