@@ -97,11 +97,13 @@ void removerProdutoDoCliente(TabelaHash *tabela);
  */
 void buscarProdutoDoCliente(TabelaHash *tabela);
 
+void venderProdutos(TabelaHash *tabela, Heap *heap);
+
 /**
- * @brief Libera toda a memória associada à tabela hash e aos clientes nela armazenados.
- *
- * @param tabela Ponteiro para a tabela hash a ser liberada.
- */
+* @brief Libera toda a memória associada à tabela hash e aos clientes nela armazenados.
+*
+* @param tabela Ponteiro para a tabela hash a ser liberada.
+*/
 void liberaTabelaHash(TabelaHash *tabela);
 
 #endif

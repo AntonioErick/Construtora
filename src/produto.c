@@ -1,6 +1,6 @@
 #include "../include/produto.h"
 
-struct produto {
+struct produto{
     char nome[50];
     float preco;
     int quantidade;
@@ -9,23 +9,23 @@ struct produto {
     struct produto *dir;      
 };
 
-int altura(Produto *produto) {
+int altura(Produto *produto){
     if (produto == NULL)
         return 0;
     return produto->altura;
 }
 
-int max(int a, int b) {
+int max(int a, int b){
     return (a > b) ? a : b;
 }
 
-int getBalanceamento(Produto *produto) {
+int getBalanceamento(Produto *produto){
     if (produto == NULL)
         return 0;
     return altura(produto->esq) - altura(produto->dir);
 }
 
-Produto* rotacaoDireita(Produto *y) {
+Produto* rotacaoDireita(Produto *y){
     Produto *x = y->esq;
     Produto *T2 = x->dir;
 
@@ -38,7 +38,7 @@ Produto* rotacaoDireita(Produto *y) {
     return x;
 }
 
-Produto* rotacaoEsquerda(Produto *x) {
+Produto* rotacaoEsquerda(Produto *x){
     Produto *y = x->dir;
     Produto *T2 = y->esq;
 
@@ -51,7 +51,7 @@ Produto* rotacaoEsquerda(Produto *x) {
     return y;
 }
 
-Produto* buscaMenorProduto(Produto *produto) {
+Produto* buscaMenorProduto(Produto *produto){
     Produto *atual = produto;
 
     while (atual->esq != NULL)
@@ -62,8 +62,7 @@ Produto* buscaMenorProduto(Produto *produto) {
 
 Produto *criaProduto(int codigoProduto, int quantidade){
     Produto *novoProduto = (Produto *)malloc(sizeof(Produto));
-    if (novoProduto == NULL)
-    {
+    if (novoProduto == NULL){
         printf("Erro ao alocar memoria para o produto.\n");
         exit(1);
     }
@@ -73,9 +72,7 @@ Produto *criaProduto(int codigoProduto, int quantidade){
     novoProduto->esq = NULL;
     novoProduto->dir = NULL;
 
-    // Atribui nome e preço de acordo com o código do produto
-    switch (codigoProduto)
-    {
+    switch (codigoProduto){
     case 1:
         strcpy(novoProduto->nome, "Cimento");
         novoProduto->preco = 25.00;
@@ -128,15 +125,15 @@ Produto *criaProduto(int codigoProduto, int quantidade){
 }
 
 Produto* insereProdutoAVL(Produto *raiz, Produto *novoProduto){
-    if (raiz == NULL) {
+    if (raiz == NULL){
         return novoProduto;
     }
 
-    if (strcmp(novoProduto->nome, raiz->nome) < 0) {
+    if (strcmp(novoProduto->nome, raiz->nome) < 0){
         raiz->esq = insereProdutoAVL(raiz->esq, novoProduto);
-    } else if (strcmp(novoProduto->nome, raiz->nome) > 0) {
+    } else if (strcmp(novoProduto->nome, raiz->nome) > 0){
         raiz->dir = insereProdutoAVL(raiz->dir, novoProduto);
-    } else {
+    } else{
 
         printf("Produto com o nome %s ja existe.\n", novoProduto->nome);
         return raiz;
@@ -146,20 +143,20 @@ Produto* insereProdutoAVL(Produto *raiz, Produto *novoProduto){
 
     int balance = getBalanceamento(raiz);
 
-    if (balance > 1 && strcmp(novoProduto->nome, raiz->esq->nome) < 0) {
+    if (balance > 1 && strcmp(novoProduto->nome, raiz->esq->nome) < 0){
         return rotacaoDireita(raiz);
     }
 
-    if (balance < -1 && strcmp(novoProduto->nome, raiz->dir->nome) > 0) {
+    if (balance < -1 && strcmp(novoProduto->nome, raiz->dir->nome) > 0){
         return rotacaoEsquerda(raiz);
     }
 
-    if (balance > 1 && strcmp(novoProduto->nome, raiz->esq->nome) > 0) {
+    if (balance > 1 && strcmp(novoProduto->nome, raiz->esq->nome) > 0){
         raiz->esq = rotacaoEsquerda(raiz->esq);
         return rotacaoDireita(raiz);
     }
 
-    if (balance < -1 && strcmp(novoProduto->nome, raiz->dir->nome) < 0) {
+    if (balance < -1 && strcmp(novoProduto->nome, raiz->dir->nome) < 0){
         raiz->dir = rotacaoDireita(raiz->dir);
         return rotacaoEsquerda(raiz);
     }
@@ -168,8 +165,7 @@ Produto* insereProdutoAVL(Produto *raiz, Produto *novoProduto){
 }
 
 float calculaPrecoTotal(Produto *raiz){
-    if (raiz == NULL)
-    {
+    if (raiz == NULL){
         return 0.0;
     }
 
@@ -182,8 +178,7 @@ float calculaPrecoTotal(Produto *raiz){
 }
 
 void imprimeProdutos(Produto *raiz){
-    if (raiz == NULL)
-    {
+    if (raiz == NULL){
         printf("Nenhum produto cadastrado.\n");
         return;
     }
@@ -199,7 +194,7 @@ void imprimeProdutos(Produto *raiz){
     imprimeProdutos(raiz->dir);
 }
 
-Produto* buscaProdutoAVL(Produto *raiz, char *nome) {
+Produto* buscaProdutoAVL(Produto *raiz, char *nome){
     if (raiz == NULL || strcmp(raiz->nome, nome) == 0)
         return raiz;
 
@@ -209,27 +204,27 @@ Produto* buscaProdutoAVL(Produto *raiz, char *nome) {
         return buscaProdutoAVL(raiz->dir, nome); 
 }
 
-Produto* removeProdutoAVL(Produto *raiz, char *nome) {
+Produto* removeProdutoAVL(Produto *raiz, char *nome){
     if (raiz == NULL) {
         printf("Produto nao encontrado.\n");
         return raiz;
     }
 
-    if (strcmp(nome, raiz->nome) < 0) {
+    if (strcmp(nome, raiz->nome) < 0){
         raiz->esq = removeProdutoAVL(raiz->esq, nome);
     } else if (strcmp(nome, raiz->nome) > 0) {
         raiz->dir = removeProdutoAVL(raiz->dir, nome);
-    } else {
+    } else{
         if ((raiz->esq == NULL) || (raiz->dir == NULL)) {
             Produto *temp = raiz->esq ? raiz->esq : raiz->dir;
-            if (temp == NULL) {
+            if (temp == NULL){
                 temp = raiz;
                 raiz = NULL;
-            } else {
+            } else{
                 *raiz = *temp;
             }
             free(temp);
-        } else {
+        } else{
             Produto *temp = buscaMenorProduto(raiz->dir);
             strcpy(raiz->nome, temp->nome);
             raiz->preco = temp->preco;
@@ -238,27 +233,27 @@ Produto* removeProdutoAVL(Produto *raiz, char *nome) {
         }
     }
 
-    if (raiz == NULL) {
+    if (raiz == NULL){
         return raiz;
     }
 
     raiz->altura = 1 + max(altura(raiz->esq), altura(raiz->dir));
     int balance = getBalanceamento(raiz);
 
-    if (balance > 1 && getBalanceamento(raiz->esq) >= 0) {
+    if (balance > 1 && getBalanceamento(raiz->esq) >= 0){
         return rotacaoDireita(raiz);
     }
 
-    if (balance > 1 && getBalanceamento(raiz->esq) < 0) {
+    if (balance > 1 && getBalanceamento(raiz->esq) < 0){
         raiz->esq = rotacaoEsquerda(raiz->esq);
         return rotacaoDireita(raiz);
     }
 
-    if (balance < -1 && getBalanceamento(raiz->dir) <= 0) {
+    if (balance < -1 && getBalanceamento(raiz->dir) <= 0){
         return rotacaoEsquerda(raiz);
     }
 
-    if (balance < -1 && getBalanceamento(raiz->dir) > 0) {
+    if (balance < -1 && getBalanceamento(raiz->dir) > 0){
         raiz->dir = rotacaoDireita(raiz->dir);
         return rotacaoEsquerda(raiz);
     }
@@ -266,7 +261,7 @@ Produto* removeProdutoAVL(Produto *raiz, char *nome) {
     return raiz;
 }
 
-void liberaProdutosAVL(Produto *raiz) {
+void liberaProdutosAVL(Produto *raiz){
     if (raiz == NULL)
         return;
 

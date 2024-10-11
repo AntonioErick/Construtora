@@ -1,13 +1,12 @@
 #include "hash.c"
 
-int main() {
+int main(){
     TabelaHash *tabela = criaTabelaHash(TAMANHO_TABELA);
     Heap *heap = criaHeap(100);
     int opc, idBusca;
     Cliente *cliente = NULL;
 
-    do
-    {
+    do{
         menu();
         scanf("%d", &opc);
         switch (opc){
@@ -23,7 +22,6 @@ int main() {
                 cliente = criaCliente();
                 insereClienteHash(tabela, cliente); 
                 atualizarValorTotalCliente(cliente);
-                insereClienteHeap(heap, cliente);
                 break;
             case 2:
                 limpatela();
@@ -61,8 +59,8 @@ int main() {
                 break;
             case 8:
                 limpatela();
-                printf("Buscando produto de cliente\n");
-                buscarProdutoDoCliente(tabela);
+                printf("Vendendo os Produtos\n");
+                venderProdutos(tabela, heap);
                 break;
             case 9:
                 limpatela();

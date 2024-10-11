@@ -1,28 +1,24 @@
 #include "../include/cliente.h"
 #include "produto.c" // Include the header file for Produto
 
-struct cliente
-{
+struct cliente{
     int id;
     char nome[50];
     char endereco[100];
     char telefone[15];
     Produto *produtos;
-    float valorTotal; // Valor total a pagar pelos produtos
+    float valorTotal;
 };
 
-typedef struct heap
-{
+typedef struct heap{
     Cliente **clientes;
     int tamanho;
     int capacidade;
 } Heap;
 
-Cliente *criaCliente()
-{
+Cliente *criaCliente(){
     Cliente *novoCliente = (Cliente *)malloc(sizeof(Cliente));
-    if (novoCliente == NULL)
-    {
+    if (novoCliente == NULL){
         printf("Erro ao alocar memória para o cliente.\n");
         exit(1);
     }
@@ -30,7 +26,7 @@ Cliente *criaCliente()
     printf("Digite o nome do cliente: ");
     scanf(" %[^\n]", novoCliente->nome);
 
-    printf("Digite o endereço do cliente: ");
+    printf("Digite o endereco do cliente: ");
     scanf(" %[^\n]", novoCliente->endereco);
 
     printf("Digite o telefone do cliente: ");
@@ -45,36 +41,30 @@ Cliente *criaCliente()
     return novoCliente;
 }
 
-void atualizarValorTotalCliente(Cliente *cliente)
-{
-    if (cliente != NULL)
-    {
+void atualizarValorTotalCliente(Cliente *cliente){
+    if (cliente != NULL){
         cliente->valorTotal = calculaPrecoTotal(cliente->produtos);
     }
 }
 
 // Funções de impressão dos clientes
-void imprimeCliente(Cliente *cliente)
-{
-    if (cliente == NULL)
-    {
-        printf("Cliente inválido ou não encontrado.\n");
+void imprimeCliente(Cliente *cliente){
+    if (cliente == NULL){
+        printf("Cliente invalido ou nao encontrado.\n");
         return;
     }
 
     printf("=== Detalhes do Cliente ===\n");
     printf("ID: %d\n", cliente->id);
     printf("Nome: %s\n", cliente->nome);
-    printf("Endereço: %s\n", cliente->endereco);
+    printf("Endereco: %s\n", cliente->endereco);
     printf("Telefone: %s\n", cliente->telefone);
     printf("===========================\n");
 
-    if (cliente->produtos == NULL)
-    {
+    if (cliente->produtos == NULL){
         printf("Nenhum produto cadastrado para este cliente.\n");
     }
-    else
-    {
+    else{
         printf("=== Produtos Associados ===\n");
         imprimeProdutos(cliente->produtos);
         printf("===========================\n");
@@ -84,10 +74,7 @@ void imprimeCliente(Cliente *cliente)
     }
 }
 
-// Funções da Heap (lista de prioridade)
-
-Heap *criaHeap(int capacidade)
-{
+Heap *criaHeap(int capacidade){
     Heap *heap = (Heap *)malloc(sizeof(Heap));
     heap->clientes = (Cliente **)malloc(capacidade * sizeof(Cliente *));
     heap->tamanho = 0;
@@ -95,15 +82,13 @@ Heap *criaHeap(int capacidade)
     return heap;
 }
 
-void trocaClientes(Cliente **a, Cliente **b)
-{
+void trocaClientes(Cliente **a, Cliente **b){
     Cliente *temp = *a;
     *a = *b;
     *b = temp;
 }
 
-void heapify(Heap *heap, int i)
-{
+void heapify(Heap *heap, int i){
     int maior = i;
     int esq = 2 * i + 1;
     int dir = 2 * i + 2;
@@ -114,17 +99,14 @@ void heapify(Heap *heap, int i)
     if (dir < heap->tamanho && heap->clientes[dir]->valorTotal > heap->clientes[maior]->valorTotal)
         maior = dir;
 
-    if (maior != i)
-    {
+    if (maior != i){
         trocaClientes(&heap->clientes[i], &heap->clientes[maior]);
         heapify(heap, maior);
     }
 }
 
-void insereClienteHeap(Heap *heap, Cliente *cliente)
-{
-    if (heap->tamanho == heap->capacidade)
-    {
+void insereClienteHeap(Heap *heap, Cliente *cliente){
+    if (heap->tamanho == heap->capacidade){
         printf("Heap cheia, não é possível inserir mais clientes.\n");
         return;
     }
@@ -133,64 +115,49 @@ void insereClienteHeap(Heap *heap, Cliente *cliente)
     int i = heap->tamanho;
     heap->tamanho++;
 
-    while (i != 0 && heap->clientes[(i - 1) / 2]->valorTotal < heap->clientes[i]->valorTotal)
-    {
+    while (i != 0 && heap->clientes[(i - 1) / 2]->valorTotal < heap->clientes[i]->valorTotal){
         trocaClientes(&heap->clientes[i], &heap->clientes[(i - 1) / 2]);
         i = (i - 1) / 2;
     }
 }
 
-Cliente *removeClienteHeap(Heap *heap)
-{
-    if (heap->tamanho <= 0)
-    {
+Cliente *removeClienteHeap(Heap *heap){
+    if (heap->tamanho <= 0){
         return NULL;
     }
 
-    if (heap->tamanho == 1)
-    {
-        heap->tamanho--;
-        return heap->clientes[0];
+    Cliente *clienteRemovido = heap->clientes[0];
+
+    for (int i = 1; i < heap->tamanho; i++){
+        heap->clientes[i - 1] = heap->clientes[i];
     }
 
-    Cliente *raiz = heap->clientes[0];
-    heap->clientes[0] = heap->clientes[heap->tamanho - 1];
     heap->tamanho--;
-    heapify(heap, 0);
 
-    return raiz;
+    return clienteRemovido;
 }
 
-// Função para realizar a entrega dos produtos
-void entregaProdutos(Heap *heap)
-{
-    if (heap->tamanho == 0)
-    {
-        printf("Nenhum pedido para entrega.\n");
+void entregaProdutos(Heap *heap){
+    if (heap->tamanho == 0){
+        printf("Nenhum cliente na fila de entregas.\n");
         return;
     }
 
-    // Remove o cliente com maior prioridade (valor total mais alto)
+    printf("=== Fila de Entregas ===\n");
+    for (int i = 0; i < heap->tamanho; i++){
+        printf("%d. Cliente: %s\n", i + 1, heap->clientes[i]->nome);
+    }
+    printf("=======================\n");
+
     Cliente *cliente = removeClienteHeap(heap);
 
-    if (cliente == NULL)
-    {
+    if (cliente == NULL){
         printf("Falha ao realizar a entrega.\n");
         return;
     }
 
-    // Exibir informações do cliente e realizar a "entrega"
     printf("Realizando a entrega para o cliente: %s\n", cliente->nome);
     printf("Endereço: %s\n", cliente->endereco);
-    printf("Valor total a pagar: R$ %.2f\n", cliente->valorTotal);
 
-    // Remove todos os produtos do cliente
-    liberaProdutosAVL(cliente->produtos);
-    cliente->produtos = NULL; // O cliente agora não tem mais produtos
-    cliente->valorTotal = 0;  // Valor total é zerado
-
-    // Reorganiza a heap após a entrega
-    heapify(heap, 0);
-
-    printf("Entrega realizada com sucesso! Todos os produtos foram removidos.\n");
+    printf("Entrega realizada com sucesso para %s.\n", cliente->nome);
 }
