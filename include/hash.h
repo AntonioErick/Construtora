@@ -5,20 +5,118 @@
 
 #define TAMANHO_TABELA 100
 
+/**
+ * @brief Estrutura que representa uma tabela hash.
+ */
 typedef struct tabelaHash TabelaHash;
 
-TabelaHash* criaTabelaHash(int tamanho);
-void insereClienteHash(TabelaHash *tabela, Cliente *cliente);
-int funcaoHash(int id, int tamanho);
-Cliente* buscaClienteHash(TabelaHash *tabela, int id);
-void imprimeClienteBuscado(TabelaHash *tabela, int id);
-int removeClienteHash(TabelaHash *tabela, int id);
-void editaClienteHash(TabelaHash *tabela, int id);
-void imprimeTabelaHash(TabelaHash *tabela);
-void cadastrarProdutoParaCliente(TabelaHash *tabela);
-void removerProdutoDoCliente(TabelaHash *tabela);
-void buscarProdutoDoCliente(TabelaHash *tabela);
-void liberaTabelaHash(TabelaHash *tabela);
+/**
+ * @brief Cria uma tabela hash com o tamanho especificado.
+ *
+ * @param tamanho O tamanho da tabela hash.
+ * @return Ponteiro para a nova tabela hash criada.
+ */
+TabelaHash *criaTabelaHash(int tamanho);
 
+/**
+ * @brief Insere um cliente na tabela hash.
+ *
+ * @param tabela Ponteiro para a tabela hash.
+ * @param cliente Ponteiro para o cliente a ser inserido.
+ */
+void insereClienteHash(TabelaHash *tabela, Cliente *cliente);
+
+/**
+ * @brief Função hash que calcula o índice de um cliente com base no seu ID.
+ *
+ * @param id O ID do cliente.
+ * @param tamanho O tamanho da tabela hash.
+ * @return O índice calculado para o cliente na tabela hash.
+ */
+int funcaoHash(int id, int tamanho);
+
+/**
+ * @brief Busca um cliente na tabela hash com base no seu ID.
+ *
+ * @param tabela Ponteiro para a tabela hash.
+ * @param id O ID do cliente a ser buscado.
+ * @return Ponteiro para o cliente encontrado ou NULL se o cliente não for encontrado.
+ */
+Cliente *buscaClienteHash(TabelaHash *tabela, int id);
+
+/**
+ * @brief Imprime as informações de um cliente buscado pelo ID.
+ *
+ * @param tabela Ponteiro para a tabela hash.
+ * @param id O ID do cliente a ser impresso.
+ */
+void imprimeClienteBuscado(TabelaHash *tabela, int id);
+
+/**
+ * @brief Remove um cliente da tabela hash com base no seu ID.
+ *
+ * @param tabela Ponteiro para a tabela hash.
+ * @param id O ID do cliente a ser removido.
+ * @return 1 se o cliente foi removido com sucesso, 0 caso contrário.
+ */
+int removeClienteHash(TabelaHash *tabela, int id);
+
+/**
+ * @brief Edita as informações de um cliente na tabela hash.
+ *
+ * @param tabela Ponteiro para a tabela hash.
+ * @param id O ID do cliente a ser editado.
+ */
+void editaClienteHash(TabelaHash *tabela, int id);
+
+/**
+ * @brief Imprime todos os clientes cadastrados na tabela hash.
+ *
+ * @param tabela Ponteiro para a tabela hash que contém os clientes.
+ */
+void imprimeTabelaHash(TabelaHash *tabela);
+
+/**
+ * @brief Cadastra um produto para um cliente existente na tabela hash.
+ *
+ * @param tabela Ponteiro para a tabela hash onde o cliente está armazenado.
+ */
+void cadastrarProdutoParaCliente(TabelaHash *tabela);
+
+/**
+ * @brief Remove um produto de um cliente na tabela hash.
+ *
+ * @param tabela Ponteiro para a tabela hash onde o cliente está armazenado.
+ */
+void removerProdutoDoCliente(TabelaHash *tabela);
+
+/**
+ * @brief Busca um produto de um cliente específico na tabela hash.
+ *
+ * @param tabela Ponteiro para a tabela hash onde o cliente está armazenado.
+ */
+void buscarProdutoDoCliente(TabelaHash *tabela);
+
+/**
+ * @brief Realiza a venda de todos os produtos de um cliente e o adiciona na fila de entregas.
+ *
+ * A função busca o cliente na tabela hash pelo seu ID, remove todos os seus produtos,
+ * zera o valor total a pagar, e em seguida adiciona o cliente na heap de prioridade
+ * para futuras entregas. O cliente só é adicionado na heap após a venda dos produtos.
+ *
+ * @param tabela Ponteiro para a tabela hash que contém os clientes cadastrados.
+ * @param heap Ponteiro para a heap que mantém a ordem de prioridade de entregas.
+ *
+ * @note Se o cliente já estiver sem produtos ou não for encontrado, a operação é cancelada.
+ */
+
+void venderProdutos(TabelaHash *tabela, Heap *heap);
+
+/**
+* @brief Libera toda a memória associada à tabela hash e aos clientes nela armazenados.
+*
+* @param tabela Ponteiro para a tabela hash a ser liberada.
+*/
+void liberaTabelaHash(TabelaHash *tabela);
 
 #endif

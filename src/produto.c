@@ -1,6 +1,6 @@
 #include "../include/produto.h"
 
-struct produto {
+struct produto{
     char nome[50];
     float preco;
     int quantidade;
@@ -9,23 +9,23 @@ struct produto {
     struct produto *dir;      
 };
 
-int altura(Produto *produto) {
+int altura(Produto *produto){
     if (produto == NULL)
         return 0;
     return produto->altura;
 }
 
-int max(int a, int b) {
+int max(int a, int b){
     return (a > b) ? a : b;
 }
 
-int getBalanceamento(Produto *produto) {
+int getBalanceamento(Produto *produto){
     if (produto == NULL)
         return 0;
     return altura(produto->esq) - altura(produto->dir);
 }
 
-Produto* rotacaoDireita(Produto *y) {
+Produto* rotacaoDireita(Produto *y){
     Produto *x = y->esq;
     Produto *T2 = x->dir;
 
@@ -38,7 +38,7 @@ Produto* rotacaoDireita(Produto *y) {
     return x;
 }
 
-Produto* rotacaoEsquerda(Produto *x) {
+Produto* rotacaoEsquerda(Produto *x){
     Produto *y = x->dir;
     Produto *T2 = y->esq;
 
@@ -51,7 +51,7 @@ Produto* rotacaoEsquerda(Produto *x) {
     return y;
 }
 
-Produto* buscaMenorProduto(Produto *produto) {
+Produto* buscaMenorProduto(Produto *produto){
     Produto *atual = produto;
 
     while (atual->esq != NULL)
@@ -60,100 +60,103 @@ Produto* buscaMenorProduto(Produto *produto) {
     return atual;
 }
 
-Produto *criaProduto(char *nomeProduto, float preco, int quantidade)
-{
+Produto *criaProduto(int codigoProduto, int quantidade){
     Produto *novoProduto = (Produto *)malloc(sizeof(Produto));
-    if (novoProduto == NULL)
-    {
-        printf("Erro ao alocar memória para o produto.\n");
+    if (novoProduto == NULL){
+        printf("Erro ao alocar memoria para o produto.\n");
         exit(1);
     }
 
-    strcpy(novoProduto->nome, nomeProduto);
-    novoProduto->preco = preco;
     novoProduto->quantidade = quantidade;
     novoProduto->altura = 1;
     novoProduto->esq = NULL;
     novoProduto->dir = NULL;
 
-    printf("Produto %s criado com sucesso.\n", nomeProduto);
+    switch (codigoProduto){
+    case 1:
+        strcpy(novoProduto->nome, "Cimento");
+        novoProduto->preco = 25.00;
+        break;
+    case 2:
+        strcpy(novoProduto->nome, "Brita");
+        novoProduto->preco = 50.00;
+        break;
+    case 3:
+        strcpy(novoProduto->nome, "Areia");
+        novoProduto->preco = 30.00;
+        break;
+    case 4:
+        strcpy(novoProduto->nome, "Tijolos");
+        novoProduto->preco = 350.00;
+        break;
+    case 5:
+        strcpy(novoProduto->nome, "Telhas");
+        novoProduto->preco = 100.00;
+        break;
+    case 6:
+        strcpy(novoProduto->nome, "Cabos Eletricos");
+        novoProduto->preco = 200.00;
+        break;
+    case 7:
+        strcpy(novoProduto->nome, "Canos PVC");
+        novoProduto->preco = 40.00;
+        break;
+    case 8:
+        strcpy(novoProduto->nome, "Parafusos");
+        novoProduto->preco = 5.00;
+        break;
+    case 9:
+        strcpy(novoProduto->nome, "Pregos");
+        novoProduto->preco = 10.00;
+        break;
+    case 10:
+        strcpy(novoProduto->nome, "Martelo");
+        novoProduto->preco = 75.00;
+        break;
+    default:
+        printf("Codigo de produto invalido.\n");
+        free(novoProduto);
+        return NULL;
+    }
+
+    printf("Produto %s criado com sucesso. Quantidade: %d\n", novoProduto->nome, quantidade);
 
     return novoProduto;
 }
 
-Produto *heapify(Produto *raiz)
-{
-    Produto *max = raiz;
-
-    if (raiz->esq != NULL && strcmp(raiz->esq->nome, max->nome) > 0)
-    {
-        max = raiz->esq;
-    }
-    if (raiz->dir != NULL && strcmp(raiz->dir->nome, max->nome) > 0)
-    {
-        max = raiz->dir;
-    }
-
-    if (max != raiz)
-    {
-        // Trocar valores com o maior nó (max)
-        Produto temp = *raiz;
-        *raiz = *max;
-        *max = temp;
-
-        // Heapificar o subárvore afetado
-        heapify(max);
-    }
-
-    return raiz;
-}
-
-Produto *insereProdutoAVL(Produto *raiz, Produto *novoProduto)
-{
-    if (raiz == NULL)
-    {
+Produto* insereProdutoAVL(Produto *raiz, Produto *novoProduto){
+    if (raiz == NULL){
         return novoProduto;
     }
 
-    if (strcmp(novoProduto->nome, raiz->nome) < 0)
-    {
+    if (strcmp(novoProduto->nome, raiz->nome) < 0){
         raiz->esq = insereProdutoAVL(raiz->esq, novoProduto);
-    }
-    else if (strcmp(novoProduto->nome, raiz->nome) > 0)
-    {
+    } else if (strcmp(novoProduto->nome, raiz->nome) > 0){
         raiz->dir = insereProdutoAVL(raiz->dir, novoProduto);
-    }
-    else
-    {
-        printf("Produto com o nome %s já existe.\n", novoProduto->nome);
+    } else{
+
+        printf("Produto com o nome %s ja existe.\n", novoProduto->nome);
         return raiz;
     }
 
     raiz->altura = 1 + max(altura(raiz->esq), altura(raiz->dir));
 
-    // Manter a propriedade da heap
-    raiz = heapify(raiz);
-
     int balance = getBalanceamento(raiz);
 
-    if (balance > 1 && strcmp(novoProduto->nome, raiz->esq->nome) < 0)
-    {
+    if (balance > 1 && strcmp(novoProduto->nome, raiz->esq->nome) < 0){
         return rotacaoDireita(raiz);
     }
 
-    if (balance < -1 && strcmp(novoProduto->nome, raiz->dir->nome) > 0)
-    {
+    if (balance < -1 && strcmp(novoProduto->nome, raiz->dir->nome) > 0){
         return rotacaoEsquerda(raiz);
     }
 
-    if (balance > 1 && strcmp(novoProduto->nome, raiz->esq->nome) > 0)
-    {
+    if (balance > 1 && strcmp(novoProduto->nome, raiz->esq->nome) > 0){
         raiz->esq = rotacaoEsquerda(raiz->esq);
         return rotacaoDireita(raiz);
     }
 
-    if (balance < -1 && strcmp(novoProduto->nome, raiz->dir->nome) < 0)
-    {
+    if (balance < -1 && strcmp(novoProduto->nome, raiz->dir->nome) < 0){
         raiz->dir = rotacaoDireita(raiz->dir);
         return rotacaoEsquerda(raiz);
     }
@@ -161,22 +164,37 @@ Produto *insereProdutoAVL(Produto *raiz, Produto *novoProduto)
     return raiz;
 }
 
-void imprimeProdutos(Produto *raiz) {
-    if (raiz == NULL) {
+float calculaPrecoTotal(Produto *raiz){
+    if (raiz == NULL){
+        return 0.0;
+    }
+
+    float precoAtual = raiz->preco * raiz->quantidade;
+
+    float precoEsq = calculaPrecoTotal(raiz->esq);
+    float precoDir = calculaPrecoTotal(raiz->dir);
+
+    return precoAtual + precoEsq + precoDir;
+}
+
+void imprimeProdutos(Produto *raiz){
+    if (raiz == NULL){
         printf("Nenhum produto cadastrado.\n");
         return;
     }
+
     imprimeProdutos(raiz->esq);
 
     printf("Produto: %s\n", raiz->nome);
-    printf("Preço: %.2f\n", raiz->preco);
+    printf("Preco unitario: R$ %.2f\n", raiz->preco);
     printf("Quantidade: %d\n", raiz->quantidade);
+    printf("Preco total do produto: R$ %.2f\n", raiz->preco * raiz->quantidade);
     printf("-------------------------------\n");
 
     imprimeProdutos(raiz->dir);
 }
 
-Produto* buscaProdutoAVL(Produto *raiz, char *nome) {
+Produto* buscaProdutoAVL(Produto *raiz, char *nome){
     if (raiz == NULL || strcmp(raiz->nome, nome) == 0)
         return raiz;
 
@@ -186,27 +204,27 @@ Produto* buscaProdutoAVL(Produto *raiz, char *nome) {
         return buscaProdutoAVL(raiz->dir, nome); 
 }
 
-Produto* removeProdutoAVL(Produto *raiz, char *nome) {
+Produto* removeProdutoAVL(Produto *raiz, char *nome){
     if (raiz == NULL) {
-        printf("Produto não encontrado.\n");
+        printf("Produto nao encontrado.\n");
         return raiz;
     }
 
-    if (strcmp(nome, raiz->nome) < 0) {
+    if (strcmp(nome, raiz->nome) < 0){
         raiz->esq = removeProdutoAVL(raiz->esq, nome);
     } else if (strcmp(nome, raiz->nome) > 0) {
         raiz->dir = removeProdutoAVL(raiz->dir, nome);
-    } else {
+    } else{
         if ((raiz->esq == NULL) || (raiz->dir == NULL)) {
             Produto *temp = raiz->esq ? raiz->esq : raiz->dir;
-            if (temp == NULL) {
+            if (temp == NULL){
                 temp = raiz;
                 raiz = NULL;
-            } else {
+            } else{
                 *raiz = *temp;
             }
             free(temp);
-        } else {
+        } else{
             Produto *temp = buscaMenorProduto(raiz->dir);
             strcpy(raiz->nome, temp->nome);
             raiz->preco = temp->preco;
@@ -215,27 +233,27 @@ Produto* removeProdutoAVL(Produto *raiz, char *nome) {
         }
     }
 
-    if (raiz == NULL) {
+    if (raiz == NULL){
         return raiz;
     }
 
     raiz->altura = 1 + max(altura(raiz->esq), altura(raiz->dir));
     int balance = getBalanceamento(raiz);
 
-    if (balance > 1 && getBalanceamento(raiz->esq) >= 0) {
+    if (balance > 1 && getBalanceamento(raiz->esq) >= 0){
         return rotacaoDireita(raiz);
     }
 
-    if (balance > 1 && getBalanceamento(raiz->esq) < 0) {
+    if (balance > 1 && getBalanceamento(raiz->esq) < 0){
         raiz->esq = rotacaoEsquerda(raiz->esq);
         return rotacaoDireita(raiz);
     }
 
-    if (balance < -1 && getBalanceamento(raiz->dir) <= 0) {
+    if (balance < -1 && getBalanceamento(raiz->dir) <= 0){
         return rotacaoEsquerda(raiz);
     }
 
-    if (balance < -1 && getBalanceamento(raiz->dir) > 0) {
+    if (balance < -1 && getBalanceamento(raiz->dir) > 0){
         raiz->dir = rotacaoDireita(raiz->dir);
         return rotacaoEsquerda(raiz);
     }
@@ -243,7 +261,7 @@ Produto* removeProdutoAVL(Produto *raiz, char *nome) {
     return raiz;
 }
 
-void liberaProdutosAVL(Produto *raiz) {
+void liberaProdutosAVL(Produto *raiz){
     if (raiz == NULL)
         return;
 
