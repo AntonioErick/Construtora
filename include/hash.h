@@ -97,6 +97,19 @@ void removerProdutoDoCliente(TabelaHash *tabela);
  */
 void buscarProdutoDoCliente(TabelaHash *tabela);
 
+/**
+ * @brief Realiza a venda de todos os produtos de um cliente e o adiciona na fila de entregas.
+ *
+ * A função busca o cliente na tabela hash pelo seu ID, remove todos os seus produtos,
+ * zera o valor total a pagar, e em seguida adiciona o cliente na heap de prioridade
+ * para futuras entregas. O cliente só é adicionado na heap após a venda dos produtos.
+ *
+ * @param tabela Ponteiro para a tabela hash que contém os clientes cadastrados.
+ * @param heap Ponteiro para a heap que mantém a ordem de prioridade de entregas.
+ *
+ * @note Se o cliente já estiver sem produtos ou não for encontrado, a operação é cancelada.
+ */
+
 void venderProdutos(TabelaHash *tabela, Heap *heap);
 
 /**
