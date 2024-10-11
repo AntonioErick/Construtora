@@ -61,8 +61,8 @@ int main() {
                 break;
             case 8:
                 limpatela();
-                printf("Buscando produto de cliente\n");
-                buscarProdutoDoCliente(tabela);
+                printf("Vendendo os Produtos\n");
+                venderProdutos(tabela);
                 break;
             case 9:
                 limpatela();

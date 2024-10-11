@@ -232,6 +232,33 @@ void removerProdutoDoCliente(TabelaHash *tabela) {
     printf("Produto %s removido com sucesso do cliente de ID %d.\n", nomeProduto, idCliente);
 }
 
+void venderProdutos(TabelaHash *tabela)
+{
+    int idCliente;
+
+    printf("Digite o ID do cliente: ");
+    scanf("%d", &idCliente);
+
+    Cliente *cliente = buscaClienteHash(tabela, idCliente);
+    if (cliente == NULL)
+    {
+        printf("Cliente com ID %d não encontrado.\n", idCliente);
+        return;
+    }
+
+    if (cliente->produtos == NULL)
+    {
+        printf("O cliente de ID %d não tem produtos cadastrados.\n", idCliente);
+        return;
+    }
+
+    liberaProdutosAVL(cliente->produtos); 
+    cliente->produtos = NULL;            
+    cliente->valorTotal = 0;          
+
+    printf("Todos os produtos do cliente de ID %d foram Vendidos com sucesso.\n", idCliente);
+}
+
 void buscarProdutoDoCliente(TabelaHash *tabela) {
     int idCliente;
     char nomeProduto[50];
