@@ -55,3 +55,23 @@ int gerarIdAleatorio(){
     srand(time(NULL));
     return rand() % 10000;
 }
+
+//tratativas
+
+int validaEntradaInteiro()
+{
+    int valor;
+    char buffer[100];
+    while (1)
+    {
+        fgets(buffer, sizeof(buffer), stdin);
+        if (sscanf(buffer, "%d", &valor) == 1)
+        {
+            return valor;
+        }
+        else
+        {
+            printf("Entrada invalida. Digite um numero inteiro: ");
+        }
+    }
+}
