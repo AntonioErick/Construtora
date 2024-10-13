@@ -113,7 +113,8 @@ void editaClienteHash(TabelaHash *tabela, int id) {
                 limpatela();
                 printf("Nome atual: %s\n", cliente->nome);
                 printf("Digite o novo nome: ");
-                scanf(" %[^\n]", novoNome);
+                limpaBufferEntrada();
+                validaEntradaString(novoNome, 50);
                 if (strlen(novoNome) > 0) {
                     strcpy(cliente->nome, novoNome);
                 }
@@ -130,7 +131,8 @@ void editaClienteHash(TabelaHash *tabela, int id) {
                 printf("Telefone atual: %s\n", cliente->telefone);
                 printf("Digite o novo telefone: ");
                 char novoTelefone[15];
-                scanf(" %[^\n]", novoTelefone);
+                limpaBufferEntrada();
+                validaEntradaTelefone(novoTelefone, 15);
                 if (strlen(novoTelefone) > 0) {
                     strcpy(cliente->telefone, novoTelefone);
                 }
@@ -259,7 +261,7 @@ void buscarProdutoDoCliente(TabelaHash *tabela){
     char nomeProduto[50];
 
     printf("Digite o ID do cliente: ");
-    scanf("%d", &idCliente);
+    validaEntradaInteiro(&idCliente);
 
     Cliente *cliente = buscaClienteHash(tabela, idCliente);
     if (cliente == NULL){
@@ -273,7 +275,7 @@ void buscarProdutoDoCliente(TabelaHash *tabela){
     }
 
     printf("Digite o nome do produto que deseja buscar: ");
-    scanf(" %[^\n]", nomeProduto);
+    validaEntradaString(nomeProduto, 50);
 
     Produto *produto = buscaProdutoAVL(cliente->produtos, nomeProduto);
 
