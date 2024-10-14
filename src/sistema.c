@@ -2,21 +2,29 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <ctype.h>
 
 void menu(){
-    printf("====Bem Vindo====\n");
-    printf("[1] - Cadastro Cliente\n");
-    printf("[2] - Buscar Cliente\n");
-    printf("[3] - Editar Cliente\n");
-    printf("[4] - Remover Cliente\n");
-    printf("[5] - Carrinhos\n");
-    printf("[6] - Adicionar ao Carrinho\n");
-    printf("[7] - Remover Produto\n");
-    printf("[8] - Vender Produtos\n");
-    printf("[9] - Realizar Entregas\n");
-    printf("[0] - Sair\n");
+    printf("======================================================\n");
+    printf("||          Bem-vindo ao Sistema ConstruTech        ||\n");
+    printf("||       Gestao de Clientes, Produtos e Entregas    ||\n");
+    printf("======================================================\n");
+    printf("|| [1] - Cadastrar Cliente                          ||\n");
+    printf("|| [2] - Buscar Cliente                             ||\n");
+    printf("|| [3] - Editar Cliente                             ||\n");
+    printf("|| [4] - Remover Cliente                            ||\n");
+    printf("|| [5] - Ver Carrinho                               ||\n");
+    printf("|| [6] - Adicionar Produtos ao Carrinho             ||\n");
+    printf("|| [7] - Remover Produtos do Carrinho               ||\n");
+    printf("|| [8] - Finalizar Compra e Registrar Pedido        ||\n");
+    printf("|| [9] - Realizar Entregas                          ||\n");
+    printf("|| [0] - Sair                                       ||\n");
+    printf("======================================================\n");
+    printf("   Selecione uma opcao: ");
     printf(">> ");
 }
+
+
 
 void menuEditCliente(){
     printf("[1] - Editar Nome\n");
@@ -54,4 +62,81 @@ void limpatela(){
 int gerarIdAleatorio(){
     srand(time(NULL));
     return rand() % 10000;
+}
+
+//tratativas
+
+int validaEntradaInteiro() {
+    int valor;
+    char buffer[100];
+    char extra;
+
+    while (1) {
+        fgets(buffer, sizeof(buffer), stdin);
+        if (sscanf(buffer, "%d %c", &valor, &extra) == 1) {
+            return valor;
+        } else {
+            printf("Entrada invalida. Digite um numero inteiro: ");
+        }
+    }
+}
+
+void validaEntradaString(char *entrada, int tamanhoMax) {
+    int valida = 0;
+
+    do {
+        fgets(entrada, tamanhoMax, stdin);
+        entrada[strcspn(entrada, "\n")] = 0; 
+
+        valida = 1; 
+
+       
+        for (int i = 0; i < strlen(entrada); i++) {
+            if (!isalpha(entrada[i]) && entrada[i] != ' ') {  
+                printf("Entrada invalida. Digite apenas letras e espacos: ");
+                valida = 0;
+                break;
+            }
+        }
+
+        if (strlen(entrada) == 0) {  
+            printf("Entrada invalida. Não pode ser vazia. Digite novamente: ");
+            valida = 0;
+        }
+
+    } while (!valida);  
+}
+
+void validaEntradaTelefone(char *entrada, int tamanhoMax) {
+    int valida = 0;
+
+    do {
+        fgets(entrada, tamanhoMax, stdin);
+        entrada[strcspn(entrada, "\n")] = 0; 
+
+        valida = 1; 
+
+        int tamanhoEntrada = strlen(entrada);
+
+
+        if (tamanhoEntrada < 9 || tamanhoEntrada > 15) {
+            printf("Telefone invalido. Deve ter entre 9 e 15 digitos. Digite novamente: ");
+            valida = 0;
+            continue; 
+        }
+
+        for (int i = 0; i < tamanhoEntrada; i++) {
+            if (!isdigit(entrada[i])) {  
+                printf("Entrada invalida. Digite apenas numeros. Digite novamente: ");
+                valida = 0;
+                break;
+            }
+        }
+
+    } while (!valida);  
+}
+
+void limpaBufferEntrada() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
 }

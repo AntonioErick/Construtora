@@ -24,18 +24,19 @@ Cliente *criaCliente(){
     }
 
     printf("Digite o nome do cliente: ");
-    scanf(" %[^\n]", novoCliente->nome);
+    validaEntradaString(novoCliente->nome, 50);
 
     printf("Digite o endereco do cliente: ");
     scanf(" %[^\n]", novoCliente->endereco);
+    limpaBufferEntrada();
 
     printf("Digite o telefone do cliente: ");
-    scanf(" %[^\n]", novoCliente->telefone);
+    validaEntradaTelefone(novoCliente->telefone, 15);
 
     novoCliente->id = gerarIdAleatorio();
     novoCliente->produtos = NULL;
-    novoCliente->valorTotal = 0.0; // Inicializa o valor total
-
+    novoCliente->valorTotal = 0.0;
+    limpatela();
     printf("Cliente %s criado com sucesso. ID: %d\n", novoCliente->nome, novoCliente->id);
 
     return novoCliente;

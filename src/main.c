@@ -8,7 +8,7 @@ int main(){
 
     do{
         menu();
-        scanf("%d", &opc);
+        opc = validaEntradaInteiro();
         switch (opc){
             case 0:
                 limpatela();
@@ -26,20 +26,20 @@ int main(){
             case 2:
                 limpatela();
                 printf("Digite o ID do cliente: ");
-                scanf("%d", &idBusca);
+                idBusca = validaEntradaInteiro();
                 cliente = buscaClienteHash(tabela, idBusca);
                 imprimeClienteBuscado(tabela, idBusca);
                 break;
             case 3:
                 limpatela();
                 printf("Digite o ID do cliente para editar: ");
-                scanf("%d", &idBusca);
+                idBusca = validaEntradaInteiro();
                 editaClienteHash(tabela, idBusca);
                 break;
             case 4:
                 limpatela();
                 printf("Digite o ID do cliente para remover: ");
-                scanf("%d", &idBusca);
+                idBusca = validaEntradaInteiro();
                 removeClienteHash(tabela, idBusca);
                 break;
             case 5:
