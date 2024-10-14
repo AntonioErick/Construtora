@@ -74,7 +74,6 @@ int validaEntradaInteiro() {
     while (1) {
         fgets(buffer, sizeof(buffer), stdin);
         if (sscanf(buffer, "%d %c", &valor, &extra) == 1) {
-            // Apenas um número foi lido, sem caracteres adicionais
             return valor;
         } else {
             printf("Entrada invalida. Digite um numero inteiro: ");

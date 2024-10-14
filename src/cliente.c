@@ -35,8 +35,8 @@ Cliente *criaCliente(){
 
     novoCliente->id = gerarIdAleatorio();
     novoCliente->produtos = NULL;
-    novoCliente->valorTotal = 0.0; // Inicializa o valor total
-
+    novoCliente->valorTotal = 0.0;
+    limpatela();
     printf("Cliente %s criado com sucesso. ID: %d\n", novoCliente->nome, novoCliente->id);
 
     return novoCliente;
