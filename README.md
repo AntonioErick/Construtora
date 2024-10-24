@@ -1,6 +1,6 @@
 <h1>
   <div align="center">
-    <p>Construa seu futuro com a gente!🛠️<p>
+    <p>Construtech - Construa seu futuro com a gente!🛠️<p>
   </div>
 </h1>
 
@@ -12,6 +12,7 @@
 
 - Tabela Hash: Desenvolvida para distribuir e armazenar clientes, possibilitando operações de inserção, busca e remoção de maneira rápida e com o tratamento de colisões.
 - AVL: Implementada para gerenciar produtos, assegurando operações balanceadas de inserção, busca e remoção, com complexidade de tempo O(log n).
+- Heap: Armazena os clientes à medida que são adicionados, garantindo que a ordem de prioridade seja mantida.
 
 ## 🔍Funcionalidades
 - Cliente:
