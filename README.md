@@ -11,8 +11,13 @@
 ## 💻Estrutura de Dados Utilizadas
 
 - Tabela Hash: Desenvolvida para distribuir e armazenar clientes, possibilitando operações de inserção, busca e remoção de maneira rápida e com o tratamento de colisões.
+  
 - AVL: Implementada para gerenciar produtos, assegurando operações balanceadas de inserção, busca e remoção, com complexidade de tempo O(log n).
-- Heap: Armazena os clientes à medida que são adicionados, garantindo que a ordem de prioridade seja mantida.
+  
+- Heap: Gerencia a
+prioridade nas entregas dos produtos vendidos, permitindo um
+controle otimizado e seguro da sequência de entregas conforme
+a prioridade dos pedidos.
 
 ## 🔍Funcionalidades
 - Cliente:
@@ -34,8 +39,79 @@
   - Permite excluir um produto da lista de disponíveis na loja.
 
   - Encerra o programa.
+ 
+- Menu Interativo:
+```bash
+=============================================
+       Bem-vindo ao Sistema ConstruTech     
+    Gestão de Clientes, Produtos e Entregas 
+=============================================
+[1] - Cadastrar Cliente
+[2] - Buscar Cliente
+[3] - Editar Cliente
+[4] - Remover Cliente
+[5] - Ver Carrinho
+[6] - Adicionar Produtos ao Carrinho
+[7] - Remover Produtos do Carrinho
+[8] - Finalizar Compra e Registrar Pedido
+[9] - Realizar Entregas
+[0] - Sair
+=============================================
+````
 
-Isso cria um fluxo lógico para o funcionamento da aplicação com foco em gerenciamento de clientes e produtos.
+## 🗂 Arquivos de Cabeçalho (.h)
+  - cliente.h:
+    - Estrutura Cliente, com novos atributos para suportar o
+carrinho de compras e histórico de pedidos.
+    - Funções expandidas para manipulação de clientes.
+      
+  - hash.h
+    - Funções de tabela hash otimizadas, incluindo
+insereClienteHash e buscaClienteHash.
+    - Nova função editaClienteHash para permitir edição de
+informações do cliente diretamente pela interface.
+
+  - produto.h
+    - Estrutura Produto e funções de árvore AVL para gerenciar
+produtos.
+    - Funções de controle de estoque e verificação de
+disponibilidade foram adicionadas.
+
+  - sistema.h
+    - Adição de funções de interface, como menu() e
+menuEditCliente().
+    - Implementação das funções listaProdutos() e limpatela()
+para melhorar a experiência do usuário.
+
+## 🗂 Arquivos de Implementação (.c)
+  - main.c
+    - Arquivo principal reorganizado com novos casos de uso,
+como cadastrar produtos no carrinho e finalizar compras.
+    - Função venderProdutos() aprimorada para registrar e
+transferir pedidos para a fila de entregas.
+
+  - sistema.c
+    - Novas funções adicionadas para exibir produtos, limpar a
+tela e gerar IDs aleatórios.
+    - Menus otimizados e funções de validação implementadas
+para evitar entradas incorretas do usuário.
+
+  - hash.c
+    - Código da tabela hash melhorado para suportar tratamento
+de colisões e edição de clientes.
+    - Nova função removeClienteHash() otimizada para liberar
+memória de forma segura.
+
+  - produto.c
+    - Implementações de AVL aprimoradas com funções para
+controle de estoque e verificação de produtos.
+
+  - cliente.c
+    - Expansão da função criaCliente() para lidar com carrinho
+de compras.
+    - Função imprimeCliente() atualizada para exibir carrinho e
+histórico de pedidos.
+
 
 ## ♻ Clonar repositório
 ```bash
